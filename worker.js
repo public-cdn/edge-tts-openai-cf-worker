@@ -30,12 +30,14 @@ async function handleRequest(request) {
             : null;
                       
         if (apiKey !== API_KEY) {
+            const utc8Time = getBeijingTime();
             return new Response(JSON.stringify({
                 error: {
                     message: "Invalid API key. Use 'Authorization: Bearer your-api-key' header",
                     type: "invalid_request_error",
                     param: null,
-                    code: "invalid_api_key"
+                    code: "invalid_api_key",
+                    time: utc8Time
                 }
             }), {
                 status: 401,
@@ -270,7 +272,15 @@ async function bytesToBase64(bytes) {
 function uuid() {
     return crypto.randomUUID().replace(/-/g, "");
 }
-
+function getBeijingTime() {
+    const options = {
+        timeZone: "Asia/Shanghai",
+        hour12: false,
+        timeZoneName: "short"
+    };
+    const beijingDate = new Date().toLocaleString("en-US", options);
+    return beijingDate;
+}
 async function sign(urlStr) {
     const url = urlStr.split("://")[1];
     const encodedUrl = encodeURIComponent(url);
