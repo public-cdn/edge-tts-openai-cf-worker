@@ -1,9 +1,9 @@
-name = "tts-worker"
+name = "edge-tts"
 main = "worker.js"
-compatibility_date = "2024-01-01"
+compatibility_date = "2024-11-08"
 
 [vars]
-API_KEY = "abc"
+API_KEY = "nbfdc"
 
 [dev]
 ip = "0.0.0.0"
